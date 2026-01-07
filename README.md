@@ -1,3 +1,12 @@
+---
+title: TheOldTimesAI
+emoji: 📜
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
 # ShakespeareAI
 
 An AI-powered chat application that responds to prompts in either Shakespearean Old English or Biblical Hebrew.
