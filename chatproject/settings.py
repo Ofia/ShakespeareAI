@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -113,8 +114,8 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Hugging Face API Key
-HUGGINGFACE_API_KEY = config('HUGGINGFACE_API_KEY')
+# Hugging Face API Key - try config first, fallback to environment variable
+HUGGINGFACE_API_KEY = config('HUGGINGFACE_API_KEY', default=os.environ.get('HUGGINGFACE_API_KEY', ''))
 
 
 # Static files (CSS, JavaScript, Images)
