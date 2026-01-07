@@ -127,4 +127,11 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CSRF trusted origins for Hugging Face Spaces
-CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='https://*.hf.space').split(',')
+CSRF_TRUSTED_ORIGINS = [
+    'https://ofirmarz-theoldtimesai.hf.space',
+    'https://*.hf.space',
+]
+
+# Allow iframe embedding for Hugging Face Spaces
+X_FRAME_OPTIONS = 'ALLOWALL'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
