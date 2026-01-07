@@ -41,7 +41,7 @@
         .header {
             background: white;
             padding: 30px 40px;
-            border-bottom: 2px solid #333;
+            border-bottom: 1px solid #bdbaba;
             text-align: center;
         }
         
@@ -86,10 +86,11 @@
         .chat-box {
             flex: 1;
             overflow-y: auto;
-            padding: 100px;
+            padding: 10px 120px 150px 100px;
             background: #f9f6f0;
             background-image: 
-                linear-gradient(90deg, transparent 79px, #d4c5a9 79px, #d4c5a9 81px, transparent 81px),
+                linear-gradient(90deg, transparent 59px, #d4c5a9 59px, #d4c5a9 61px, transparent 61px),
+                linear-gradient(90deg, transparent calc(100% - 61px), #d4c5a9 calc(100% - 61px), #d4c5a9 calc(100% - 59px), transparent calc(100% - 59px)),
                 linear-gradient(#f9f6f0 .1em, transparent .1em);
             background-size: 100% 2em;
             line-height: 2em;
@@ -232,7 +233,7 @@
             background: white;
             padding: 40px 50px;
             border-radius: 20px;
-            max-width: 550px;
+            max-width: 600px;
             position: relative;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             animation: slideIn 0.4s ease;
@@ -341,7 +342,7 @@
         <div class="chat-box" id="chat-box">
             <div class="message ai">
                 <div class="message-content">
-                    Greetings, traveler. Speak thy query, and wisdom shall be bestowed upon thee.
+                    Greetings, Speak thy query, and wisdom shall be bestowed upon thee.
                 </div>
             </div>
         </div>
@@ -358,7 +359,8 @@
     </div>
 
     <script>
-                // Popup functionality
+
+        // Popup functionality
         function closePopup() {
             document.getElementById('welcomePopup').classList.add('hidden');
             localStorage.setItem('welcomeShown', 'true');
@@ -367,17 +369,13 @@
         // Show popup only on first visit
         window.addEventListener('load', function() {
             const welcomeShown = localStorage.getItem('welcomeShown');
-            if (!welcomeShown) {
-                document.getElementById('welcomePopup').classList.remove('hidden');
-            } else {
+            if (welcomeShown) {
                 document.getElementById('welcomePopup').classList.add('hidden');
             }
         });
 
         // Rest of your existing JavaScript code below...
         let currentLanguage = 'shakespeare';    
-
-        let currentLanguage = 'shakespeare';
         
         function setLanguage(language) {
             currentLanguage = language;

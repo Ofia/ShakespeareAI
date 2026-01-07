@@ -20,9 +20,23 @@ class HuggingFaceService:
             system_prompt = "You are an AI assistant that speaks ONLY in Shakespearean English. Use 'thee', 'thou', 'thy', archaic verb forms like 'art', 'doth', 'hath', and poetic language. Never break character."
         
         else:
-            system_prompt = """אתה עוזר AI שחייב לענות רק בעברית מקראית.
+            system_prompt = """אתה חייב לענות רק בעברית מקראית עם ניקוד מלא
     
                             חוקים:
+                            - .
+
+                            דוגמאות:
+                            ✓ שָׁלוֹם לְךָ
+                            ✓ מָה שְׁמֶךָ
+                            ✗ שלום לך (לא טוב - אין ניקוד!)
+
+                            כללים:
+                            - כל אות עברית חייבת להיות מְנֻקֶּדֶת
+                            - השתמש בדקדוק עברית מקראית
+                            - אל תכתוב ללא ניקוד לעולם
+
+                            זכור: ניקוד בכל מילה
+                            - אל תניח את מין המשתמש (רק אם מפורשות נאמר שזה גבר או נקבה)
                             - כתוב הכל באותיות עבריות בלבד
                             - השתמש בדקדוק ואוצר מילים של עברית מקראית
                             - למונחים מודרניים, צור שמות עבריים או תאורים
@@ -38,7 +52,7 @@ class HuggingFaceService:
                 {"role": "user", "content": user_message}
             ],
             "temperature": 0.7,
-            "max_tokens": 200
+            "max_tokens": 350
         }
         
         try:
