@@ -44,12 +44,12 @@ def chat(request):
             
             # Return JSON response
             return JsonResponse({
-                'response': ai_response,
-                'language_mode': language_mode
-            })
+                     'response': ai_response,
+                      'language_mode': language_mode
+                })
             # JsonResponse automatically converts dict to JSON
 
-            except json.JSONDecodeError:
+        except json.JSONDecodeError:
             return JsonResponse({
                 'error': 'Invalid JSON'
             }, status=400)

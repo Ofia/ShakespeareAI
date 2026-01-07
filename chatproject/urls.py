@@ -17,6 +17,27 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.contrib import admin
+from django.urls import path, include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('chat.urls')),
+    # include() plugs in another URLconf
+    # This makes all chat app URLs available at the root
 ]
+'''
+
+**URL Routing Explained**:
+- User visits `http://localhost:8000/` → `chat.views.index`
+- JavaScript POSTs to `/chat/` → `chat.views.chat`
+
+## Part 7: Create Templates
+
+**Create folder structure**:
+
+chat/
+└── templates/
+    └── chat/
+        └── index.html
+'''
