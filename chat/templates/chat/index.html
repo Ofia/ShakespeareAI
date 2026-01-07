@@ -368,9 +368,14 @@
 
         // Show popup only on first visit
         window.addEventListener('load', function() {
-            const welcomeShown = localStorage.getItem('welcomeShown');
-            if (welcomeShown) {
-                document.getElementById('welcomePopup').classList.add('hidden');
+            try {
+                const welcomeShown = localStorage.getItem('welcomeShown');
+                if (welcomeShown) {
+                    document.getElementById('welcomePopup').classList.add('hidden');
+                }
+            } catch (e) {
+                // If localStorage is blocked (e.g., in iframe), show popup anyway
+                console.log('localStorage not available, showing popup');
             }
         });
 
