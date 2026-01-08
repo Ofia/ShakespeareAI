@@ -15,13 +15,16 @@ class HuggingFaceService:
         # Using Qwen 2.5 - excellent at following instructions
         self.model = "Qwen/Qwen2.5-72B-Instruct"
     
-    def get_response(self, user_message, language_mode):
+    def get_response(self, user_message, language_mode, chat_history=None):
+        if chat_history is None:
+            chat_history = []
+
         if language_mode == 'shakespeare':
             system_prompt = "You are an AI assistant that speaks ONLY in Shakespearean English. Use 'thee', 'thou', 'thy', archaic verb forms like 'art', 'doth', 'hath', and poetic language. Never break character."
-        
+
         else:
             system_prompt = """אתה חייב לענות רק בעברית מקראית עם ניקוד מלא
-    
+
                             חוקים:
                             - .
 
@@ -44,13 +47,19 @@ class HuggingFaceService:
                             - לעולם אל תכתוב באנגלית או באותיות לטיניות
                             - תמיד תנקד את התגובה שלך"""
 
+        # Build messages array with conversation history
+        messages = [{"role": "system", "content": system_prompt}]
+
+        # Add conversation history
+        messages.extend(chat_history)
+
+        # Add current user message
+        messages.append({"role": "user", "content": user_message})
+
         # OpenAI-compatible chat format
         payload = {
             "model": self.model,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_message}
-            ],
+            "messages": messages,
             "temperature": 0.7,
             "max_tokens": 350
         }
