@@ -47,6 +47,10 @@ def chat(request):
             # Retrieve conversation history from session
             chat_history = request.session['chat_history']
 
+            # Debug: Print session info
+            print(f"Session key: {request.session.session_key}")
+            print(f"Chat history length: {len(chat_history)}")
+
             # Get AI response with conversation history
             ai_response = hf_service.get_response(user_message, language_mode, chat_history)
 
@@ -63,6 +67,9 @@ def chat(request):
             # Save updated history back to session
             request.session['chat_history'] = chat_history
             request.session.modified = True  # Ensure session is saved
+
+            # Debug: Confirm save
+            print(f"Saved history length: {len(request.session['chat_history'])}")
 
             # Return JSON response
             return JsonResponse({

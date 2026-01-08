@@ -136,3 +136,10 @@ CSRF_TRUSTED_ORIGINS = [
 # Allow iframe embedding for Hugging Face Spaces
 X_FRAME_OPTIONS = 'ALLOWALL'
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+# Session configuration for HuggingFace Spaces
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_SAVE_EVERY_REQUEST = True
