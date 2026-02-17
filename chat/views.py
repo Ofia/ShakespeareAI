@@ -3,10 +3,11 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .huggingface_service import HuggingFaceService
-from django.shortcuts import render
+from .news_service import NewsService
 
-# Create service instance
+# Create service instances
 hf_service = HuggingFaceService()
+news_service = NewsService()
 
 def index(request):
     # Renders the main chat page
@@ -32,7 +33,6 @@ def chat(request):
             # request.body is raw bytes, json.loads converts to Python dict
 
             user_message = data.get('message', '')
-            language_mode = data.get('language_mode', 'shakespeare')
 
             # Validate input
             if not user_message:
@@ -52,7 +52,7 @@ def chat(request):
             print(f"Chat history length: {len(chat_history)}")
 
             # Get AI response with conversation history
-            ai_response = hf_service.get_response(user_message, language_mode, chat_history)
+            ai_response = hf_service.get_response(user_message, chat_history)
 
             # Append new messages to history
             chat_history.append({
@@ -73,8 +73,7 @@ def chat(request):
 
             # Return JSON response
             return JsonResponse({
-                     'response': ai_response,
-                      'language_mode': language_mode
+                     'response': ai_response
                 })
             # JsonResponse automatically converts dict to JSON
 
@@ -89,3 +88,19 @@ def chat(request):
             'error': 'Only POST requests allowed'
         }, status=405)  # 405 = Method Not Allowed
 
+
+def news_feed(request):
+    """
+    Fetch today's historical events from Wikipedia.
+    Similar to FastAPI /feed endpoint.
+    """
+    if request.method == 'GET':
+        events = news_service.get_todays_events()
+        return JsonResponse({
+            'events': events,
+            'count': len(events)
+        })
+    else:
+        return JsonResponse({
+            'error': 'Only GET requests allowed'
+        }, status=405)
